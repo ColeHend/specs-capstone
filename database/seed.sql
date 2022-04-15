@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS users ;
 
 CREATE TABLE users(
     user_id SERIAL PRIMARY KEY,
@@ -17,23 +16,31 @@ CREATE TABLE marker(
 
 CREATE TABLE locations(
     location_id SERIAL PRIMARY KEY,
-    title VARCHAR(50),
-    location_desc TEXT,
     user_id INT REFERENCES users(user_id),
     world_id INT REFERENCES worlds(world_id),
-    parent_id INT REFERENCES groups(group_id)
-
+    parent_id INT REFERENCES groups(group_id),
+    title VARCHAR(50),
+    location_desc TEXT
 )
 CREATE TABLE worlds(
     world_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(user_id),
     world_name VARCHAR(50),
-    map_img_link VARCHAR(500),
+    map_img_link VARCHAR(500)
     
 )
 
 CREATE TABLE groups(
     group_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(user_id),
+    group_name VARCHAR(240),
+    group_desc TEXT
+
 )
 CREATE TABLE characters(
     char_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(user_id),
+    location_id INT REFERENCES locations(location_id),
+    char_name VARCHAR(240),
+    char_desc TEXT
 )
