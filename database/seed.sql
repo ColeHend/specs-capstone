@@ -30,12 +30,7 @@ CREATE TABLE worlds(
     map_img_link VARCHAR(500),
     
 )
-CREATE TABLE world_markers(
-    user_id INT REFERENCES users(user_id),
-    world_id INT REFERENCES worlds(world_id),
-    marker_id INT REFERENCES marker(marker_id),
 
-)
 CREATE TABLE groups(
     group_id SERIAL PRIMARY KEY,
 )
