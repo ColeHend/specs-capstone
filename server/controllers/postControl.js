@@ -17,14 +17,14 @@ function userLogin(req, res) {
     .query(`SELECT * FROM users WHERE username=?`, {
       replacements: [username],
     })
-    .then((res) => {
-      console.log(res);
-      const exists = bcrypt.compareSync(password, res[0][0].password);
-      if (res[0][0].username === username && exists) {
+    .then((dbRes) => {
+      console.log(dbRes[0][0]);
+      const exists = bcrypt.compareSync(password, dbRes[0][0].user_password);
+      if (dbRes[0][0].username === username && exists) {
         req.session.loggedIn = true;
-        req.session.user_id = res[0][0].user_id;
-        req.session.username = res[0][0].username;
-        res.status(200).send(res);
+        req.session.user_id = dbRes[0][0].user_id;
+        req.session.username = dbRes[0][0].username;
+        res.status(200).send(dbRes[0][0]);
       } else {
         res.status(200).send("Incorrect Login Info");
       }
@@ -40,12 +40,13 @@ function userRegister(req, res) {
       .query("INSERT INTO users(username,user_password) VALUES(?,?);", {
         replacements: [username, passHash],
       })
-      .then((res) => {
-        res.status.send(res);
+      .then((dbRes) => {
+        console.log(dbRes);
+        res.status(200).send(dbRes[0][0]);
       })
       .catch((err) => console.log(err));
   } else {
-    res.send(200).send("passwords don't match");
+    res.send(400).send("passwords don't match");
   }
 }
 function logout(req, res) {

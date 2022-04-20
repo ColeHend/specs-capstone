@@ -8,4 +8,9 @@ function getUsers(req, res) {
     })
     .catch((err) => console.log(err));
 }
-module.exports = { getUsers };
+function obtainSessionInfo(req, res) {
+  if (req.session.isLoggedIn) {
+    res.status(200).send({ ...req.session });
+  }
+}
+module.exports = { getUsers, obtainSessionInfo };

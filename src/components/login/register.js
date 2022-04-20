@@ -1,17 +1,22 @@
 import React from "react";
 import { useFormik } from "formik";
-
-function Register() {
+import axios from "axios";
+function Register(props) {
+  const url = "http://localhost:4000";
   const initialValues = {
     username: "",
     password: "",
     passwordConf: "",
   };
   const onSubmit = (values) => {
+    const { username, password } = formik.values;
+    axios.post(url + "/api/register", values);
+    axios.post(url + "/api/login", { username, password });
     console.log("Submitted!", values);
+    props.close();
   };
   const validate = (values) => {
-    console.log("validated", values);
+    // console.log("validated", values);
   };
   const formik = useFormik({ initialValues, onSubmit, validate });
   return (

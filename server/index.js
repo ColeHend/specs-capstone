@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
-const { getUsers } = require("./controllers/getControl");
+const { getUsers, obtainSessionInfo } = require("./controllers/getControl");
 const {
   postUsers,
   userLogin,
@@ -38,6 +38,7 @@ app.use(
 );
 mySqlStore.sync();
 
+app.get("/api/sessionInfo", obtainSessionInfo);
 app.get("/api/users", getUsers);
 app.post("/api/users", postUsers);
 app.post("/api/login", userLogin);
