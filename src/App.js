@@ -1,23 +1,32 @@
 // @ts-nocheck
 import "./App.css";
 import React, { useState } from "react";
-import TheHeader from "./components/theHeader";
-import Navbar from "./components/navbar";
-import LoginBar from "./components/loginbar";
-import axios from "axios";
+import TheHeader from "./components/header/theHeader";
+import Navbar from "./components/nav/navbar";
+import LoginBar from "./components/nav/loginbar";
+import localInfo from "./components/utils/localinfo";
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/homePage/home";
+import World from "./components/worldPage/world";
+import Map from "./components/mapPage/map";
+import Profile from "./components/profilePage/profile";
 function App() {
-  const localInfo = () => {
-    let user_id = window.localStorage.getItem("user_id");
-    let username = window.localStorage.getItem("username");
-    return { user_id, username };
-  };
   const theInfo = localInfo();
   const [isLoggedIn, setIsLoggedIn] = useState(theInfo.username ? true : false);
   return (
     <div className="App">
-      <TheHeader />
-      {isLoggedIn ? <Navbar /> : <LoginBar setIsLoggedIn={setIsLoggedIn} />}
-      {JSON.stringify(localInfo())}
+      <div>
+        <TheHeader />
+      </div>
+      <div>
+        {isLoggedIn ? <Navbar /> : <LoginBar setIsLoggedIn={setIsLoggedIn} />}
+      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/world" element={<World />} />
+        <Route path="/map" element={<Map />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
     </div>
   );
 }

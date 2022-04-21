@@ -1,8 +1,9 @@
 import React from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import Login from "./login/login";
-import Register from "./login/register";
+import Login from "../login/login";
+import Register from "../login/register";
+import "./nav.css";
 export default function LoginBar(props) {
   const { setIsLoggedIn } = props;
   const MySwal = withReactContent(Swal);
@@ -21,7 +22,7 @@ export default function LoginBar(props) {
       showConfirmButton: false,
     });
   return (
-    <div>
+    <div className="navBar">
       <button onClick={theLogin}>login</button>
       <button onClick={theRegister}>register</button>
     </div>

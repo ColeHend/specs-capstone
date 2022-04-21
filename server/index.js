@@ -7,6 +7,7 @@ const {
   postUsers,
   userLogin,
   userRegister,
+  logout,
 } = require("./controllers/postControl");
 
 const app = express();
@@ -43,7 +44,7 @@ app.get("/api/users", getUsers);
 app.post("/api/users", postUsers);
 app.post("/api/login", userLogin);
 app.post("/api/register", userRegister);
-
+app.post("/api/logout", logout);
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });

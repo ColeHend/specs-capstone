@@ -50,6 +50,7 @@ function userRegister(req, res) {
   }
 }
 function logout(req, res) {
-  req.session.destroy();
+  req.session.destroy((err) => console.log(err));
+  res.status(200).redirect("/");
 }
-module.exports = { postUsers, userLogin, userRegister };
+module.exports = { postUsers, userLogin, userRegister, logout };
