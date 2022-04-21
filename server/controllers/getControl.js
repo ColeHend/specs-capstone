@@ -13,4 +13,7 @@ function obtainSessionInfo(req, res) {
     res.status(200).send({ ...req.session });
   }
 }
-module.exports = { getUsers, obtainSessionInfo };
+function getWorlds(req, res) {
+  res.status(200).send([{ title: "hello" }]);
+}
+module.exports = { getUsers, obtainSessionInfo, getWorlds };

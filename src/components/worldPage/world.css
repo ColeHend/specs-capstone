@@ -1,0 +1,9 @@
+.worldForm{
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #000;
+    box-shadow: 1px 1px #000;
+    width: min-content;
+}

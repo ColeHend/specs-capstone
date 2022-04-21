@@ -2,14 +2,18 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
-const { getUsers, obtainSessionInfo } = require("./controllers/getControl");
+const {
+  getUsers,
+  obtainSessionInfo,
+  getWorlds,
+} = require("./controllers/getControl");
 const {
   postUsers,
   userLogin,
   userRegister,
   logout,
 } = require("./controllers/postControl");
-
+const auth = require("./controllers/auth");
 const app = express();
 const PORT = process.env.PORT || 4000;
 const { SECRET } = process.env;
@@ -39,9 +43,10 @@ app.use(
 );
 mySqlStore.sync();
 
-app.get("/api/sessionInfo", obtainSessionInfo);
-app.get("/api/users", getUsers);
-app.post("/api/users", postUsers);
+app.get("/api/getWorlds", getWorlds);
+app.get("/api/sessionInfo", auth, obtainSessionInfo);
+app.get("/api/users", auth, getUsers);
+app.post("/api/users", auth, postUsers);
 app.post("/api/login", userLogin);
 app.post("/api/register", userRegister);
 app.post("/api/logout", logout);
