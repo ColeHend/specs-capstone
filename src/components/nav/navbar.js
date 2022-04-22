@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./nav.css";
 export default function Navbar(props) {
   const logout = () => {
-    axios.post("http://localhost:4000/api/logout");
+    axios.post("/api/logout");
     localStorage.clear();
   };
   return (

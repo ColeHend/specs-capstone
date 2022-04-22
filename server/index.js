@@ -1,3 +1,4 @@
+// @ts-nocheck
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -9,6 +10,7 @@ const {
 } = require("./controllers/getControl");
 const {
   postUsers,
+  postWorld,
   userLogin,
   userRegister,
   logout,
@@ -38,14 +40,14 @@ app.use(
     saveUninitialized: false,
     store: mySqlStore,
     proxy: false,
-    cookie: { maxAge: oneDay },
+    cookie: { maxAge: oneDay, user_id: 0, username: "" },
   })
 );
 mySqlStore.sync();
-
-app.get("/api/getWorlds", getWorlds);
+app.get("/api/getWorlds/:id", getWorlds);
 app.get("/api/sessionInfo", auth, obtainSessionInfo);
 app.get("/api/users", auth, getUsers);
+app.post("/api/worlds", postWorld);
 app.post("/api/users", auth, postUsers);
 app.post("/api/login", userLogin);
 app.post("/api/register", userRegister);

@@ -14,6 +14,7 @@ function Login(props) {
       setIsLoggedIn(true);
       window.localStorage.setItem("user_id", res.data.user_id);
       window.localStorage.setItem("username", res.data.username);
+
       console.log(res.data);
       props.close();
     });

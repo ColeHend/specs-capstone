@@ -1,0 +1,13 @@
+.worldCollapse{
+    border: 1px solid #000;
+    width: min-content;
+    min-width: 10vw;
+    
+}
+.worldCollapseOuter{
+    border: 1px solid #000;
+}
+li{
+    margin-left: auto;
+    margin-right: auto;
+}
