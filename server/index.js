@@ -6,12 +6,15 @@ const cors = require("cors");
 const {
   getUsers,
   obtainSessionInfo,
+  getWorld,
   getWorlds,
+  getGroups,
 } = require("./controllers/getControl");
 const {
   postUsers,
   postWorld,
   userLogin,
+  postGroup,
   userRegister,
   logout,
 } = require("./controllers/postControl");
@@ -45,9 +48,13 @@ app.use(
 );
 mySqlStore.sync();
 app.get("/api/getWorlds/:id", getWorlds);
+app.get("/api/world/:id/:worldID", getWorld);
+app.get("/api/groups/:worldID", getGroups);
 app.get("/api/sessionInfo", auth, obtainSessionInfo);
 app.get("/api/users", auth, getUsers);
+
 app.post("/api/worlds", postWorld);
+app.post("/api/groups", postGroup);
 app.post("/api/users", auth, postUsers);
 app.post("/api/login", userLogin);
 app.post("/api/register", userRegister);

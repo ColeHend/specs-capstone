@@ -15,6 +15,7 @@ CREATE TABLE worlds(
 CREATE TABLE groups(
     group_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id),
+    world_id INT REFERENCES worlds(world_id),
     group_name VARCHAR(240),
     group_desc TEXT
 

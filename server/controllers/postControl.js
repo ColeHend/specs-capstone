@@ -68,11 +68,46 @@ function postWorld(req, res) {
         }
       )
       .then((dbRes) => {
-        res.sendStatus(200);
+        sequelize
+          .query(
+            `SELECT * from worlds WHERE user_id=? AND world_name=? AND world_desc=? AND map_img_link=?`,
+            { replacments: [user_id, world_name, world_desc, map_img_link] }
+          )
+          .then((worldRes) => {
+            const { world_id } = worldRes[0];
+            console.log(worldRes[0]);
+            res.status(200).send({
+              user_id,
+              world_name,
+              world_desc,
+              map_img_link,
+              world_id,
+            });
+          })
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   } else {
     res.status(401).send({ message: "not logged in" });
   }
 }
-module.exports = { postUsers, userLogin, userRegister, logout, postWorld };
+function postGroup(req, res) {
+  const { user_id, world_id, group_name, group_desc } = req.body;
+  sequelize
+    .query(
+      "INSERT INTO groups(user_id,world_id,group_name,group_desc) VALUES (?,?,?,?);",
+      {
+        replacements: [user_id, world_id, group_name, group_desc],
+      }
+    )
+    .then(({ data }) => {})
+    .catch((err) => console.log(err));
+}
+module.exports = {
+  postGroup,
+  postUsers,
+  userLogin,
+  userRegister,
+  logout,
+  postWorld,
+};

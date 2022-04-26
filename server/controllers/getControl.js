@@ -25,4 +25,32 @@ function getWorlds(req, res) {
     })
     .catch((err) => console.log(err));
 }
-module.exports = { getUsers, obtainSessionInfo, getWorlds };
+function getWorld(req, res) {
+  const { worldID } = req.params;
+  sequelize
+    .query("SELECT * FROM worlds WHERE world_id=?;", {
+      replacements: [+worldID],
+    })
+    .then((dbRes) => {
+      res.status(200).send(dbRes[0]);
+    })
+    .catch((err) => console.log(err));
+}
+function getGroups(req, res) {
+  const world_id = req.params.worldID;
+  sequelize
+    .query("SELECT * FROM groups WHERE world_id=?;", {
+      replacements: [+world_id],
+    })
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((err) => console.log(err));
+}
+module.exports = {
+  getUsers,
+  obtainSessionInfo,
+  getWorld,
+  getWorlds,
+  getGroups,
+};
