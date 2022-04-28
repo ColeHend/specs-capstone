@@ -47,10 +47,22 @@ function getGroups(req, res) {
     })
     .catch((err) => console.log(err));
 }
+function getLocations(req, res) {
+  const world_id = req.params.worldID;
+  sequelize
+    .query("SELECT * from locations WHERE world_id=?", {
+      replacements: [+world_id],
+    })
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((err) => console.log(err));
+}
 module.exports = {
   getUsers,
   obtainSessionInfo,
   getWorld,
   getWorlds,
   getGroups,
+  getLocations,
 };

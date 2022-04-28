@@ -1,8 +1,11 @@
 import React from "react";
 import { useFormik } from "formik";
+
 import axios from "axios";
+
 function Login(props) {
   const url = "http://localhost:4000";
+  const { userInfo, setUserInfo } = props.userInfo;
   const { setIsLoggedIn } = props;
   const initialValues = {
     username: "",
@@ -14,8 +17,8 @@ function Login(props) {
       setIsLoggedIn(true);
       window.localStorage.setItem("user_id", res.data.user_id);
       window.localStorage.setItem("username", res.data.username);
-
-      console.log(res.data);
+      setUserInfo({ ...res.data });
+      console.log(userInfo);
       props.close();
     });
   };

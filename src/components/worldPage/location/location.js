@@ -1,22 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { UserContext } from "../../../App";
 import SideBar from "./locationSideBar";
+import LocationList from "./locationList";
 import MainWindow from "./locationMainWin";
 function Location(props) {
+  const { userInfo } = useContext(UserContext);
   const [currGroup, setCurrGroup] = useState("");
+  const [theLocations, setTheLocations] = React.useState([]);
+  const [addingGroup, setAddingGroup] = React.useState(false);
   const { theWorld } = props;
-  function getID() {
-    if (theWorld.world_id) {
-      const { user_id, world_id } = theWorld;
-      return { user_id, world_id };
-    } else {
-      const world_id = window.location.pathname.replace("/world/", "");
-      const user_id = localStorage.getItem("user_id");
-      console.log(user_id, world_id);
-      return { user_id, world_id };
-    }
-  }
-  const { user_id, world_id } = getID();
+  const { user_id, world_id } = userInfo;
   useEffect(() => {
     axios
       .get(`/api/world/${user_id}/${world_id}`)
@@ -32,14 +26,21 @@ function Location(props) {
             currGroup={currGroup}
             setCurrGroup={setCurrGroup}
             theWorld={theWorld}
+            setAddingGroup={setAddingGroup}
           />
         </div>
         <div className="mainWindow">
           {currGroup !== "" ? (
-            <MainWindow currGroup={currGroup} />
+            <MainWindow
+              currGroup={currGroup}
+              addingGroup={{ addingGroup, setAddingGroup }}
+            />
           ) : (
             "Please Select a group"
           )}
+        </div>
+        <div className="locationListWindow">
+          <LocationList theLocations={{ theLocations, setTheLocations }} />
         </div>
       </div>
     </div>

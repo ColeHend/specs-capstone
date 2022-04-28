@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useFormik } from "formik";
 function Group(props) {
-  const { user_id, world_id } = props.theWorld;
+  const { user_id, curr_world_id: world_id } = props.theWorld;
   const initialValues = {
     groupName: "",
     groupDesc: "",
@@ -14,7 +14,9 @@ function Group(props) {
       group_name: values.groupName,
       group_desc: values.groupDesc,
     });
-    props.close();
+    if (props.close) {
+      props.close();
+    }
   };
   const validate = (values) => {};
   const formik = useFormik({ initialValues, onSubmit, validate });

@@ -103,6 +103,27 @@ function postGroup(req, res) {
     .then(({ data }) => {})
     .catch((err) => console.log(err));
 }
+function postLocation(req, res) {
+  const { user_id, curr_world_id, curr_group_id, locate_name, locate_desc } =
+    req.body;
+  sequelize
+    .query(
+      "INSERT INTO locations(user_id,world_id,parent_id,title,location_desc) VALUES(?,?,?,?,?);",
+      {
+        replacements: [
+          user_id,
+          curr_world_id,
+          curr_group_id,
+          locate_name,
+          locate_desc,
+        ],
+      }
+    )
+    .then((dbRes) => {
+      res.status(200).send(dbRes);
+    })
+    .catch((err) => console.log(err));
+}
 module.exports = {
   postGroup,
   postUsers,
@@ -110,4 +131,5 @@ module.exports = {
   userRegister,
   logout,
   postWorld,
+  postLocation,
 };

@@ -1,24 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../../App";
 import axios from "axios";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-import Group from "./group";
 function SideBar(props) {
   const { world_id } = props.theWorld;
-  const { currGroup, setCurrGroup } = props;
-  const MySwal = withReactContent(Swal);
+  const { userInfo, setUserInfo } = useContext(UserContext);
+  const { currGroup, setCurrGroup, setAddingGroup } = props;
   const addGroup = () => {
-    MySwal.fire({
-      title: <p>Add Location Group</p>,
-      footer: "Copyright",
-      html: <Group theWorld={props.theWorld} close={MySwal.close} />,
-      showConfirmButton: false,
-    });
+    setAddingGroup(true);
   };
   const [theGroups, setTheGroups] = useState([]);
   const [selectStyle, setSelectStyle] = useState({});
   const onClickHandle = (element) => {
     setCurrGroup(element.group_name);
+    setAddingGroup(false);
+    setUserInfo({ ...userInfo, curr_group_id: element.group_id });
     setSelectStyle({ border: "1px dashed #00f" });
   };
   useEffect(() => {
