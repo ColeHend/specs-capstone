@@ -1,19 +1,26 @@
 import React from "react";
 import axios from "axios";
 import { useFormik } from "formik";
+import { UserContext } from "../../../App";
 function Group(props) {
+  const { userInfo, setUserInfo } = React.useContext(UserContext);
   const { user_id, curr_world_id: world_id } = props.theWorld;
   const initialValues = {
     groupName: "",
     groupDesc: "",
   };
-  const onSubmit = (values) => {
-    axios.post("/api/groups", {
-      user_id: user_id,
-      world_id: world_id,
-      group_name: values.groupName,
-      group_desc: values.groupDesc,
-    });
+  const onSubmit = (values, { resetForm }) => {
+    axios
+      .post("/api/groups", {
+        user_id: user_id,
+        world_id: world_id,
+        group_name: values.groupName,
+        group_desc: values.groupDesc,
+      })
+      .then((dbRes) => {
+        resetForm();
+        setUserInfo({ ...userInfo });
+      });
     if (props.close) {
       props.close();
     }

@@ -18,7 +18,9 @@ function getWorlds(req, res) {
   console.log("id: ", user_id);
   console.log(req.session);
   sequelize
-    .query("SELECT * FROM worlds WHERE user_id=?", { replacements: [user_id] })
+    .query("SELECT * FROM worlds WHERE user_id=?", {
+      replacements: [+user_id],
+    })
     .then((dbRes) => {
       console.log(dbRes[0]);
       res.status(200).send([dbRes[0]]);
@@ -58,6 +60,18 @@ function getLocations(req, res) {
     })
     .catch((err) => console.log(err));
 }
+function getNpc(req, res) {
+  const world_id = req.params.id;
+  console.log(world_id);
+  sequelize
+    .query("SELECT * FROM characters WHERE world_id=?;", {
+      replacements: [+world_id],
+    })
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((err) => console.log(err));
+}
 module.exports = {
   getUsers,
   obtainSessionInfo,
@@ -65,4 +79,5 @@ module.exports = {
   getWorlds,
   getGroups,
   getLocations,
+  getNpc,
 };

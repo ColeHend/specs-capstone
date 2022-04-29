@@ -8,7 +8,7 @@ function Location(props) {
   const { userInfo } = useContext(UserContext);
   const [currGroup, setCurrGroup] = useState("");
   const [theLocations, setTheLocations] = React.useState([]);
-  const [addingGroup, setAddingGroup] = React.useState(false);
+  const [addingGroup, setAddingGroup] = React.useState("group");
   const { theWorld } = props;
   const { user_id, world_id } = userInfo;
   useEffect(() => {
@@ -30,17 +30,15 @@ function Location(props) {
           />
         </div>
         <div className="mainWindow">
-          {currGroup !== "" ? (
-            <MainWindow
-              currGroup={currGroup}
-              addingGroup={{ addingGroup, setAddingGroup }}
-            />
-          ) : (
-            "Please Select a group"
-          )}
+          <MainWindow
+            currGroup={currGroup}
+            addingGroup={{ addingGroup, setAddingGroup }}
+          />
         </div>
         <div className="locationListWindow">
-          <LocationList theLocations={{ theLocations, setTheLocations }} />
+          <LocationList
+            theLocations={{ theLocations, setTheLocations, setAddingGroup }}
+          />
         </div>
       </div>
     </div>

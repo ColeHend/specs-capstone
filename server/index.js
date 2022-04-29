@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const {
   getUsers,
+  getNpc,
   obtainSessionInfo,
   getWorld,
   getWorlds,
@@ -14,6 +15,7 @@ const {
 const {
   postUsers,
   postWorld,
+  postNpc,
   userLogin,
   postGroup,
   userRegister,
@@ -55,14 +57,15 @@ app.get("/api/groups/:worldID", getGroups);
 app.get("/api/locations/:worldID", getLocations);
 app.get("/api/sessionInfo", auth, obtainSessionInfo);
 app.get("/api/users", auth, getUsers);
-
+app.get("/api/npc/:id", getNpc);
+app.post("/api/npc", postNpc);
 app.post("/api/locations", postLocation);
 app.post("/api/worlds", postWorld);
 app.post("/api/groups", postGroup);
 app.post("/api/users", auth, postUsers);
 app.post("/api/login", userLogin);
 app.post("/api/register", userRegister);
-app.post("/api/logout", logout);
+app.post("/logout", logout);
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });

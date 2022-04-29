@@ -3,7 +3,7 @@ import { UserContext } from "../../../App";
 import { useFormik } from "formik";
 import axios from "axios";
 function AddLocation(props) {
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext);
   const { currGroup } = props;
   const initialValues = {
     locate_name: "",
@@ -16,6 +16,7 @@ function AddLocation(props) {
     const toSubmit = { ...values, ...userInfo };
     axios.post("http://localhost:4000/api/locations", toSubmit).then((res) => {
       resetForm({});
+      setUserInfo({ ...userInfo });
     });
   };
   const validate = () => {};

@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import "./nav.css";
 export default function Navbar(props) {
   const logout = () => {
-    axios.post("http://localhost:4000/api/logout");
+    axios.post("http://localhost:4000/logout").then((dbRes) => {
+      window.location.assign("/logout");
+      window.location.assign("/");
+    });
     localStorage.clear();
   };
   return (
@@ -15,10 +18,9 @@ export default function Navbar(props) {
       <Link to="/world">
         <button>World</button>
       </Link>
-      <Link to="/map">
-        <button>Map</button>
+      <Link to="/logout">
+        <button onClick={logout}>Logout</button>
       </Link>
-      <button onClick={logout}>Logout</button>
     </div>
   );
 }

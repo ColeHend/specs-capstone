@@ -124,6 +124,27 @@ function postLocation(req, res) {
     })
     .catch((err) => console.log(err));
 }
+function postNpc(req, res) {
+  const { user_id, curr_location_id, npc_name, npc_desc, curr_world_id } =
+    req.body;
+  sequelize
+    .query(
+      "INSERT INTO characters(user_id,location_id,char_name,char_desc,world_id) VALUES (?,?,?,?,?);",
+      {
+        replacements: [
+          user_id,
+          curr_location_id,
+          npc_name,
+          npc_desc,
+          curr_world_id,
+        ],
+      }
+    )
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((err) => console.log(err));
+}
 module.exports = {
   postGroup,
   postUsers,
@@ -132,4 +153,5 @@ module.exports = {
   logout,
   postWorld,
   postLocation,
+  postNpc,
 };

@@ -1,0 +1,5 @@
+#map { width: min-content; border: 1px solid #000;}
+canvas{
+    height: 75vh;
+    width: auto;
+}

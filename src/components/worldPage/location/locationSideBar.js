@@ -6,13 +6,13 @@ function SideBar(props) {
   const { userInfo, setUserInfo } = useContext(UserContext);
   const { currGroup, setCurrGroup, setAddingGroup } = props;
   const addGroup = () => {
-    setAddingGroup(true);
+    setAddingGroup("group");
   };
   const [theGroups, setTheGroups] = useState([]);
   const [selectStyle, setSelectStyle] = useState({});
   const onClickHandle = (element) => {
     setCurrGroup(element.group_name);
-    setAddingGroup(false);
+    setAddingGroup("location");
     setUserInfo({ ...userInfo, curr_group_id: element.group_id });
     setSelectStyle({ border: "1px dashed #00f" });
   };
@@ -21,7 +21,7 @@ function SideBar(props) {
       .get(`http://localhost:4000/api/groups/${world_id}`)
       .then((res) => {
         const { data } = res;
-        console.log(data);
+        console.log("groups: ", data);
         setTheGroups(data[0]);
       })
       .catch((err) => console.log(err));
