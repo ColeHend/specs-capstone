@@ -23,7 +23,7 @@ function Collapsable(props) {
         trigger={`${theworld.world_name} <--`}
       >
         {theworld.world_desc}
-        <Link to={`/world`}>
+        <Link to={`/worldedit`}>
           <button onClick={editHandle}>Edit</button>
         </Link>
         <Link to={`/map`}>

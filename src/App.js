@@ -32,11 +32,11 @@ function App() {
           <Route
             path="/world"
             element={
-              isLoggedIn ? <World step={"new"} editInfo={editInfo} /> : <Home />
+              isLoggedIn ? <World step="new" editInfo={editInfo} /> : <Home />
             }
           />
           <Route
-            path="/world/:id"
+            path="/worldedit"
             element={
               isLoggedIn ? (
                 <World step={"edit"} editInfo={editInfo} />
