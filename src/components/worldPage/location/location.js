@@ -18,7 +18,7 @@ function Location(props) {
       .catch((err) => console.log(err));
   }, [user_id, world_id]);
   return (
-    <div>
+    <div className="mainWorldWindow">
       <div className="worldNameText">{theWorld.world_name}</div>
       <div className="locationWindow">
         <div className="sideBar">

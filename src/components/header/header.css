@@ -1,8 +1,11 @@
 .theHeader {
     height: 8vh;
-    background-color: #000;
+    background-color: #222831;
     color: #fff;
 }
 #headerText{
+    padding-top: 1.5vh;
+    margin-left: 40%;
+    margin-right: 40%;
     color: #fff;
 }

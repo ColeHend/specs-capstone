@@ -1,6 +1,22 @@
 import React from "react";
 import Collapsible from "react-collapsible";
 import { Link } from "react-router-dom";
+function CollapTitle(props) {
+  const { title, isOpen } = props;
+  const style = {
+    float: "right",
+  };
+  return (
+    <div>
+      <span>{title}</span>
+      {isOpen ? (
+        <span className="collapseArrow">{"v"}</span>
+      ) : (
+        <span className="collapseArrow">{"<"}</span>
+      )}
+    </div>
+  );
+}
 function Collapsable(props) {
   const { theworld } = props;
   const { setEditInfo, setUserInfo, userInfo } = props.setEditInfo;
@@ -20,15 +36,20 @@ function Collapsable(props) {
         contentOuterClassName="worldCollapseOuter"
         contentInnerClassName="worldCollapseInner"
         className="worldCollapse"
-        trigger={`${theworld.world_name} <--`}
+        triggerWhenOpen={
+          <CollapTitle isOpen={true} title={theworld.world_name} />
+        }
+        trigger={<CollapTitle isOpen={false} title={theworld.world_name} />}
       >
-        {theworld.world_desc}
-        <Link to={`/worldedit`}>
-          <button onClick={editHandle}>Edit</button>
-        </Link>
-        <Link to={`/map`}>
-          <button onClick={mapHandle}>Map</button>
-        </Link>
+        <div className="collapseButtons">
+          <Link to={`/worldedit`}>
+            <button onClick={editHandle}>Edit</button>
+          </Link>
+          <Link to={`/map`}>
+            <button onClick={mapHandle}>Map</button>
+          </Link>
+        </div>
+        <div>{theworld.world_desc}</div>
       </Collapsible>
     </div>
   );

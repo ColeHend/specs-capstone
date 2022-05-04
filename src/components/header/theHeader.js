@@ -8,7 +8,7 @@ export default function TheHeader(props) {
     <div className="theHeader">
       <Link to="/">
         <h2 id="headerText">
-          Hello welcome {theInfo.username ? theInfo.username : ""}
+          Hello Welcome {theInfo.username ? theInfo.username : ""}
         </h2>
       </Link>
     </div>

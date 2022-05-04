@@ -13,9 +13,10 @@ function Profile(props) {
 
   useEffect(() => {
     const info = localInfo();
-    console.log("info: ", info);
+    const leUserID = userInfo.user_id ? userInfo.user_id : info.user_id;
+    console.log("info: ", leUserID);
     axios
-      .get(`http://localhost:4000/api/getWorlds/${+userInfo.user_id}`)
+      .get(`http://localhost:4000/api/getWorlds/${+leUserID}`)
       .then(({ data }) => {
         console.log("Success!", data[0]);
         setWorldList(data[0]);

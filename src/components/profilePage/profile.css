@@ -2,12 +2,47 @@
     border: 1px solid #000;
     width: min-content;
     min-width: 10vw;
+    background-color: #222831;
+    color: #eee;
     
+}
+.collapseButtons{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.collapseButtons  button{
+    margin: 5px;
+    background-color: inherit;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0px 1px #000;
+    color: #EEEEEE;
+    min-width: 4vw;
+    
+}
+.collapseButtons a{
+    align-self: stretch;
 }
 .worldCollapseOuter{
     border: 1px solid #000;
 }
+.worldCollapseInner{
+    background-color: #393E46;
+}
+.collapseArrow{
+    float:right;
+    margin-right: 5px;
+    font-weight: 800;
+}
+ul{
+    list-style-type: none;
+    width: 100%;
+}
 li{
+    width: min-content;
+    margin: 10px;
     margin-left: auto;
     margin-right: auto;
+
 }

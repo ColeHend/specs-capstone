@@ -30,6 +30,7 @@ function Group(props) {
   return (
     <form onSubmit={formik.handleSubmit} action="/api/groups" method="post">
       <div>
+        <label htmlFor="groupName">Name: </label>
         <input
           name="groupName"
           value={formik.values.groupName}
@@ -40,6 +41,7 @@ function Group(props) {
       </div>
 
       <div>
+        <label htmlFor="groupDesc">Description: </label>
         <input
           name="groupDesc"
           value={formik.values.groupDesc}

@@ -1,12 +1,35 @@
+.WorldInfo{
+    width: min-content;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+    background-color: #222831;
+}
+.WorldInfo h3{
+    margin-left: 20%;
+    margin-right: 20%;
+    
+    color: #eee;
+}
 .worldForm{
     display: flex;
     flex-direction: column;
+    background-color: #393E46;
+    color: #eee;
     margin-left: auto;
     margin-right: auto;
     padding: 15px;
     border: 1px solid #000;
+    border-radius: 10px;
     box-shadow: 1px 1px #000;
     width: min-content;
+    margin-top: 0px;
+    padding-top: 0px;
+    margin: 5px;
+    translate: 0 -5px;
+    
 }
 .worldForm button{
     margin: 10px;
@@ -15,43 +38,87 @@
     width: 75vw;
     height: auto;
 }
+
+
+
+.mainWorldWindow{
+    /* border: 1px solid black; */
+    margin: 5px;
+}
+.worldNameText{
+    background-color: #222831;
+    color: #EEE;
+    text-align: center;
+    font-size: 24px;
+    border-radius: 10px;
+}
 .locationWindow{
     display: flex;
     flex-direction: row;
 }
-.worldNameText{
-    text-align: center;
-    font-size: 24px;
-}
-.sideBar{
-    margin: 3vw;
-    margin-top: 0;
-    width: 10vw;
-    height: 75vh;
-    border: 1px solid #000;
-}
 .locationListWindow{
+    background-color: #393E46;
+    color: #EEE;
+    border-radius: 10px;
+    padding: 15px;
     margin: 3vw;
-    margin-top: 0;
-    width: min-content;
-    max-width: 15vw;
-    height: 75vh;
+    margin-top: 5px;
+    width: 25vw;
+    aspect-ratio: 3/9;
     border: 1px solid #000;
+}
+.locationListWindow div{
+    padding: 10px;
+}
+div button{
+    border: none;
+    background-color: inherit;
+    border-radius: 10px;
+    box-shadow: 1px 1px #00f;
+    margin: 5px;
+    color:#eee;
+    font-weight: 800;
 }
 .mainWindow{
+    background-color: #393E46;
+    color: #EEE;
+    margin-top: 5px;
+    border-radius: 10px;
     text-align: center;
     border: 1px solid #000;
-    width: 60vw;
-    height: 75vh;
+    width: 50vw;
+    aspect-ratio: 8/9;
+}
+.mainWindow div{
+    padding: 10px;
+}
+.sideBar{
+    background-color: #393E46;
+    color: #EEE;
+    border-radius: 10px;
+    margin: 3vw;
+    margin-top: 5px;
+    width: 25vw;
+    aspect-ratio: 3/9;
+    border: 1px solid #000;
+}
+.sideBar div{
+    padding: 10px;
 }
 .locationCollapse{
     border: 1px solid #000;
     width: min-content;
     min-width: 5vw;
     margin: 5px;
+    background-color: #222831;
+    color: #eee;
     
 }
 .locationCollapseOuter{
     border: 1px solid #000;
+}
+.locationCollapseInner{
+    margin: none;
+    background-color: #393E46;
 }
 textarea { resize: none; }

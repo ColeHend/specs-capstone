@@ -20,7 +20,13 @@ function AddNpc(props) {
     console.log(userInfo);
   }, [userInfo]);
   return (
-    <form onSubmit={formik.handleSubmit} action="" method="post">
+    <form
+      style={{ display: "flex", flexDirection: "column" }}
+      onSubmit={formik.handleSubmit}
+      action=""
+      method="post"
+    >
+      <label htmlFor="npc_name">Name</label>
       <input
         name="npc_name"
         value={formik.values.npc_name}
@@ -28,6 +34,7 @@ function AddNpc(props) {
         placeholder="Add npc name"
         type="text"
       />
+      <label htmlFor="npc_desc">Description</label>
       <textarea
         placeholder="Add npc description"
         name="npc_desc"

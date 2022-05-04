@@ -56,6 +56,7 @@ function App() {
               )
             }
           />
+          <Route path="/logout" element={<Home />} />
         </Routes>
       </UserContext.Provider>
     </div>

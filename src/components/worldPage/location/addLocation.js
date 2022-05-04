@@ -24,7 +24,7 @@ function AddLocation(props) {
   return (
     <form onSubmit={formik.handleSubmit} action="/api/locations" method="post">
       <div>
-        <span>Location</span>
+        <h3>Location</h3>
       </div>
       <div>
         <span>Group: {currGroup}</span>
@@ -34,6 +34,7 @@ function AddLocation(props) {
         <input
           name="locate_name"
           type="text"
+          placeholder="please enter a name.."
           onChange={formik.handleChange}
           value={formik.values.locate_name}
         />
@@ -42,6 +43,7 @@ function AddLocation(props) {
         <label htmlFor="locationDesc">Description: </label>
         <textarea
           name="locate_desc"
+          placeholder="please enter a description.."
           onChange={formik.handleChange}
           value={formik.values.locate_desc}
         />
