@@ -22,6 +22,12 @@ const {
   logout,
   postLocation,
 } = require("./controllers/postControl");
+const {
+  putGroup,
+  putWorld,
+  putLocation,
+  putNPC,
+} = require("./controllers/putControl");
 const auth = require("./controllers/auth");
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -58,6 +64,7 @@ app.get("/api/locations/:worldID", getLocations);
 app.get("/api/sessionInfo", auth, obtainSessionInfo);
 app.get("/api/users", auth, getUsers);
 app.get("/api/npc/:id", getNpc);
+
 app.post("/api/npc", postNpc);
 app.post("/api/locations", postLocation);
 app.post("/api/worlds", postWorld);
@@ -66,6 +73,11 @@ app.post("/api/users", auth, postUsers);
 app.post("/api/login", userLogin);
 app.post("/api/register", userRegister);
 app.post("/logout", logout);
+
+app.put("/api/groups", putGroup);
+app.put("/api/worlds", putWorld);
+app.put("/api/locations", putLocation);
+app.put("/api/npc", putNPC);
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });

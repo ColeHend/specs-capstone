@@ -2,19 +2,23 @@ import React, { useContext } from "react";
 import { UserContext } from "../../../App";
 import { useFormik } from "formik";
 import axios from "axios";
-function AddLocation(props) {
+function EditLocation(props) {
+  const {
+    location_id,
+    title: locate_name,
+    location_desc: locate_desc,
+  } = props.editHold;
   const { userInfo, setUserInfo } = useContext(UserContext);
-  // const { currGroup } = props;
+  const { currGroup } = props;
+  console.log("edithold: ", props.editHold);
   const initialValues = {
-    locate_name: "",
-    locate_desc: "",
-    group_name: "",
-    group_desc: "",
+    locate_name: locate_name,
+    locate_desc: locate_desc,
   };
 
   const onSubmit = (values, { resetForm }) => {
-    const toSubmit = { ...values, ...userInfo };
-    axios.post("http://localhost:4000/api/locations", toSubmit).then((res) => {
+    const toSubmit = { ...values, ...userInfo, location_id };
+    axios.put("http://localhost:4000/api/locations", toSubmit).then((res) => {
       resetForm({});
       setUserInfo({ ...userInfo });
     });
@@ -22,9 +26,12 @@ function AddLocation(props) {
   const validate = () => {};
   const formik = useFormik({ initialValues, onSubmit, validate });
   return (
-    <form onSubmit={formik.handleSubmit} action="/api/locations" method="post">
+    <form onSubmit={formik.handleSubmit} action="/api/locations" method="put">
       <div>
-        <h3>Location</h3>
+        <h3>Edit Location</h3>
+      </div>
+      <div>
+        <span>Group: {currGroup}</span>
       </div>
       <div>
         <label htmlFor="locationName">Name: </label>
@@ -46,10 +53,10 @@ function AddLocation(props) {
         />
       </div>
       <div>
-        <button type="submit">Add Location</button>
+        <button type="submit">Edit Location</button>
       </div>
     </form>
   );
 }
 
-export default AddLocation;
+export default EditLocation;

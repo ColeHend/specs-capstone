@@ -4,6 +4,7 @@ import axios from "axios";
 import Collapsible from "react-collapsible";
 function LocationTitle(props) {
   const { title } = props.location;
+
   return (
     <div>
       <span>{title}</span>
@@ -12,6 +13,7 @@ function LocationTitle(props) {
 }
 function LocationList(props) {
   const { userInfo, setUserInfo } = useContext(UserContext);
+  const { editHold, setEditHold } = props.editHold;
   const [npcArr, setNpcArr] = React.useState([]);
   const { theLocations, setTheLocations, setAddingGroup } = props.theLocations;
   useEffect(() => {
@@ -37,9 +39,16 @@ function LocationList(props) {
     setAddingGroup("npc");
     setUserInfo({ ...userInfo, curr_location_id: location_id });
   };
+  const handleEditClick = (location) => {
+    setAddingGroup("editLocation");
+    setEditHold(location);
+  };
+  const handleEditNPC = (npc) => {
+    setAddingGroup("editNPC");
+    setEditHold({ ...editHold, ...npc });
+  };
   return (
     <div>
-      <div>LocationList</div>
       <div>
         <button onClick={handleClick}>Add Location</button>
       </div>
@@ -66,13 +75,33 @@ function LocationList(props) {
                 >
                   Add NPC
                 </button>
+                <button onClick={() => handleEditClick(location)}>
+                  Edit Location
+                </button>
                 <div>{location.location_desc}</div>
                 <div>
                   <ul style={{ listStyleType: "none" }}>
                     {npcArr
                       .filter((npc) => npc.location_id === location.location_id)
                       .map((daNPC) => (
-                        <li>{daNPC.char_name}</li>
+                        <Collapsible
+                          openedClassName="locationCollapse"
+                          contentOuterClassName="locationCollapseOuter"
+                          contentInnerClassName="locationCollapseInner"
+                          className="locationCollapse"
+                          trigger={
+                            <LocationTitle
+                              location={{ title: daNPC.char_name }}
+                            />
+                          }
+                        >
+                          <div>
+                            <button onClick={() => handleEditNPC(daNPC)}>
+                              Edit NPC
+                            </button>
+                          </div>
+                          <div>{daNPC.char_desc}</div>
+                        </Collapsible>
                       ))}
                   </ul>
                 </div>

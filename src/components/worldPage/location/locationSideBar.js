@@ -1,10 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../../App";
 import axios from "axios";
+import Collapsible from "react-collapsible";
+function LocationTitle(props) {
+  const { title } = props.location;
+
+  return (
+    <div>
+      <span>{title}</span>
+    </div>
+  );
+}
 function SideBar(props) {
   const { world_id } = props.theWorld;
+  const { editHold, setEditHold } = props.editHold;
   const { userInfo, setUserInfo } = useContext(UserContext);
-  const { currGroup, setCurrGroup, setAddingGroup } = props;
+  const { currGroup, setCurrGroup, setAddingGroup, addingGroup } = props;
   const addGroup = () => {
     setAddingGroup("group");
   };
@@ -26,6 +37,12 @@ function SideBar(props) {
       })
       .catch((err) => console.log(err));
   }, [world_id]);
+
+  const editGroupHandle = (group) => {
+    setEditHold({ ...editHold, ...group });
+    setAddingGroup("editGroup");
+    console.log("editHold: ", editHold, addingGroup);
+  };
   return (
     <div>
       <button onClick={addGroup}>Add Group</button>
@@ -37,7 +54,24 @@ function SideBar(props) {
                 onClick={() => onClickHandle(element)}
                 key={element + index}
               >
-                {element.group_name}
+                <div>
+                  <Collapsible
+                    openedClassName="locationCollapse"
+                    contentOuterClassName="locationCollapseOuter"
+                    contentInnerClassName="locationCollapseInner"
+                    className="locationCollapse"
+                    trigger={
+                      <LocationTitle location={{ title: element.group_name }} />
+                    }
+                  >
+                    <div>
+                      <button onDoubleClick={() => editGroupHandle(element)}>
+                        Edit Group
+                      </button>
+                    </div>
+                    <div>{element.group_desc}</div>
+                  </Collapsible>
+                </div>
               </div>
             );
           })

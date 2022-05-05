@@ -7,6 +7,7 @@ import MainWindow from "./locationMainWin";
 function Location(props) {
   const { userInfo } = useContext(UserContext);
   const [currGroup, setCurrGroup] = useState("");
+  const [editHold, setEditHold] = useState({});
   const [theLocations, setTheLocations] = React.useState([]);
   const [addingGroup, setAddingGroup] = React.useState("group");
   const { theWorld } = props;
@@ -23,20 +24,24 @@ function Location(props) {
       <div className="locationWindow">
         <div className="sideBar">
           <SideBar
+            editHold={{ editHold, setEditHold }}
             currGroup={currGroup}
             setCurrGroup={setCurrGroup}
             theWorld={theWorld}
+            addingGroup={addingGroup}
             setAddingGroup={setAddingGroup}
           />
         </div>
         <div className="mainWindow">
           <MainWindow
+            editHold={{ editHold, setEditHold }}
             currGroup={currGroup}
             addingGroup={{ addingGroup, setAddingGroup }}
           />
         </div>
         <div className="locationListWindow">
           <LocationList
+            editHold={{ editHold, setEditHold }}
             theLocations={{ theLocations, setTheLocations, setAddingGroup }}
           />
         </div>

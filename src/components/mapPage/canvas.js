@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
 import { UserContext } from "../../App";
-import { getEventLocation } from "./canvasTools";
 const Canvas = (props) => {
   const [cameraOffset, setCameraOffset] = React.useState({ x: 0, y: 0 });
   const [dragStart, setDragStart] = React.useState({ x: 0, y: 0 });
@@ -14,7 +13,7 @@ const Canvas = (props) => {
   const canvasRef = useRef(null);
 
   const { placeMark, setPlaceMark } = props.placeMark;
-  const { markers, setMarkers } = props.markers;
+  const { markers } = props.markers;
   const { draw, ...rest } = props;
 
   useEffect(() => {
@@ -131,10 +130,10 @@ const Canvas = (props) => {
       x: e.clientX / mapScale - cameraOffset.x,
       y: e.clientY / mapScale - cameraOffset.y,
     };
-    const wheelPan = {
-      x: canvasRef.current.width / mapScale,
-      y: canvasRef.current.height / mapScale,
-    };
+    // const wheelPan = {
+    //   x: canvasRef.current.width / mapScale,
+    //   y: canvasRef.current.height / mapScale,
+    // };
     if (e.deltaY > 0) {
       setScaleFactor(Math.abs(scaleFactor));
       setMapScale(mapScale + scaleFactor);

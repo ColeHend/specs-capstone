@@ -3,9 +3,6 @@ import Collapsible from "react-collapsible";
 import { Link } from "react-router-dom";
 function CollapTitle(props) {
   const { title, isOpen } = props;
-  const style = {
-    float: "right",
-  };
   return (
     <div>
       <span>{title}</span>

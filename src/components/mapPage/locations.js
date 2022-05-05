@@ -3,18 +3,18 @@ import React from "react";
 import Collapsible from "react-collapsible";
 function LocationsCollection(props) {
   const { myLocations } = props;
-  const { markers, setMarkers } = props.markers;
-  const { placeMark, setPlaceMark } = props.placeMark;
-  const setLocationHandle = (e, location) => {
-    setMarkers([
-      ...markers,
-      {
-        id: location.location_id,
-        x: placeMark.x,
-        y: placeMark.y,
-      },
-    ]);
-  };
+  // const { markers, setMarkers } = props.markers;
+  // const { placeMark } = props.placeMark;
+  // const setLocationHandle = (e, location) => {
+  //   setMarkers([
+  //     ...markers,
+  //     {
+  //       id: location.location_id,
+  //       x: placeMark.x,
+  //       y: placeMark.y,
+  //     },
+  //   ]);
+  // };
   return (
     <div>
       {myLocations.map((location) => (
@@ -27,9 +27,9 @@ function LocationsCollection(props) {
           trigger={<LocationTitle location={location} />}
         >
           <div>
-            <button onClick={(e) => setLocationHandle(e, location)}>
+            {/* <button onClick={(e) => setLocationHandle(e, location)}>
               Set Location
-            </button>
+            </button> */}
           </div>
           <div>{location.location_desc}</div>
         </Collapsible>
