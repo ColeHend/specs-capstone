@@ -2,8 +2,9 @@ import React from "react";
 import localInfo from "../utils/localinfo";
 import { useFormik } from "formik";
 import axios from "axios";
-
+import { UserContext } from "../../App";
 function WorldCreate(props) {
+  const { userInfo, setUserInfo } = React.useContext(UserContext);
   const { setTheWorld } = props.theWorld;
   const { setSteps } = props;
   const initialValues = {
@@ -11,24 +12,28 @@ function WorldCreate(props) {
     desc: "",
     img_link: "",
   };
-  const onSubmit = (values) => {
+  const onSubmit = (values, { resetForm }) => {
     const url = "http://localhost:4000";
     const info = localInfo();
-    axios
-      .post(url + "/api/worlds", {
-        user_id: info.user_id,
-        world_name: values.title,
-        world_desc: values.desc,
-        map_img_link: values.img_link,
-      })
-      .then((dbRes) => {
-        // { user_id, world_name, world_desc, map_img_link }
-        setTheWorld(dbRes.data);
-        console.log("setTheWorld: ", dbRes.data);
-        setSteps("edit");
-        return console.log("successful submit", dbRes.data);
-      })
-      .catch((err) => console.log(err));
+    if (values.title && values.desc) {
+      axios
+        .post(url + "/api/worlds", {
+          user_id: info.user_id,
+          world_name: values.title,
+          world_desc: values.desc,
+          map_img_link: values.img_link,
+        })
+        .then((dbRes) => {
+          // { user_id, world_name, world_desc, map_img_link }
+          const { world_id } = dbRes.data[0];
+          resetForm();
+          setSteps("edit");
+          setUserInfo({ ...userInfo, world_id });
+          setTheWorld(dbRes.data[0]);
+          console.log("successful submit", dbRes.data);
+        })
+        .catch((err) => console.log(err));
+    }
   };
   const validate = (values) => {};
   const formik = useFormik({ initialValues, onSubmit, validate });

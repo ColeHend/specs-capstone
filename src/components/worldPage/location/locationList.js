@@ -26,13 +26,13 @@ function LocationList(props) {
             console.log("npcs: ", dbRes.data);
             setNpcArr(dbRes.data[0]);
           });
-        console.log("locations: ", data);
         setTheLocations(data[0]);
+        console.log("locations: ", theLocations);
       });
 
     console.log(userInfo);
     console.log("filter: ", userInfo.curr_group_id);
-  }, [setTheLocations, userInfo]);
+  }, [setTheLocations, userInfo, theLocations]);
 
   const handleClick = (e) => setAddingGroup("location");
   const handleNpcClick = ({ location_id }) => {

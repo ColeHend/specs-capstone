@@ -5,6 +5,7 @@ import { UserContext } from "../../../App";
 function Group(props) {
   const { userInfo, setUserInfo } = React.useContext(UserContext);
   const { user_id, curr_world_id: world_id } = props.theWorld;
+  const { theGroups, setTheGroups } = props.theGroups;
   const initialValues = {
     groupName: "",
     groupDesc: "",
@@ -12,13 +13,24 @@ function Group(props) {
   const onSubmit = (values, { resetForm }) => {
     axios
       .post("/api/groups", {
-        user_id: user_id,
-        world_id: world_id,
+        user_id: +user_id,
+        world_id: +world_id,
         group_name: values.groupName,
         group_desc: values.groupDesc,
       })
       .then((dbRes) => {
         resetForm();
+        console.log("addGroup testing---: ", dbRes.data[0]);
+        setTheGroups([
+          ...theGroups,
+          {
+            ...dbRes.data[0][0],
+            user_id: +user_id,
+            world_id: +world_id,
+            group_name: values.groupName,
+            group_desc: values.groupDesc,
+          },
+        ]);
         setUserInfo({ ...userInfo });
       });
     if (props.close) {

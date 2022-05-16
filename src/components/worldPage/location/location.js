@@ -11,6 +11,7 @@ function Location(props) {
   const [theLocations, setTheLocations] = React.useState([]);
   const [addingGroup, setAddingGroup] = React.useState("group");
   const { theWorld } = props;
+  const [theGroups, setTheGroups] = useState([]);
   const { user_id, world_id } = userInfo;
   useEffect(() => {
     axios
@@ -24,6 +25,7 @@ function Location(props) {
       <div className="locationWindow">
         <div className="sideBar">
           <SideBar
+            theGroups={{ theGroups, setTheGroups }}
             editHold={{ editHold, setEditHold }}
             currGroup={currGroup}
             setCurrGroup={setCurrGroup}
@@ -34,8 +36,10 @@ function Location(props) {
         </div>
         <div className="mainWindow">
           <MainWindow
+            theGroups={{ theGroups, setTheGroups }}
             editHold={{ editHold, setEditHold }}
             currGroup={currGroup}
+            setCurrGroup={setCurrGroup}
             addingGroup={{ addingGroup, setAddingGroup }}
           />
         </div>

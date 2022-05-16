@@ -34,7 +34,6 @@ function LocationsCollection(props) {
           <div>{location.location_desc}</div>
         </Collapsible>
       ))}
-      <div>{JSON.stringify(myLocations)}</div>
     </div>
   );
 }

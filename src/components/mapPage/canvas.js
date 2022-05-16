@@ -158,23 +158,6 @@ const Canvas = (props) => {
         ref={canvasRef}
         {...rest}
       />
-      <div>
-        {JSON.stringify({
-          mapScale,
-          dragStart,
-          mapMove,
-          pan,
-          isDragging,
-        })}
-      </div>
-      <div>
-        {JSON.stringify({
-          ...userInfo,
-          user_password: "",
-          map_img_link: "...",
-          markers,
-        })}
-      </div>
     </div>
   );
 };

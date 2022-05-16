@@ -12,22 +12,17 @@ function World(props) {
     }
   }, [setTheWorld, editInfo]);
   // const { steps, setSteps } = step;
-  const worldForging = () => {
-    switch (steps) {
-      case "new":
-        return (
-          <WorldCreate
-            theWorld={{ theWorld, setTheWorld }}
-            setSteps={setSteps}
-          />
-        );
-      case "edit":
-        return <Location theWorld={theWorld} />;
-      default:
-        return <h1>Somethings Wrong</h1>;
-    }
-  };
-  return <div>{worldForging()}</div>;
+  return (
+    <div>
+      {steps === "new" ? (
+        <WorldCreate theWorld={{ theWorld, setTheWorld }} setSteps={setSteps} />
+      ) : steps === "edit" ? (
+        <Location theWorld={theWorld} />
+      ) : (
+        <h1>Somethings Wrong</h1>
+      )}
+    </div>
+  );
 }
 
 export default World;

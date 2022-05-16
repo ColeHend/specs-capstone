@@ -15,11 +15,19 @@ function SideBar(props) {
   const { world_id } = props.theWorld;
   const { editHold, setEditHold } = props.editHold;
   const { userInfo, setUserInfo } = useContext(UserContext);
+  let theWorldsID;
+  if (world_id !== undefined) {
+    theWorldsID = world_id;
+  } else if (userInfo.current_world_id !== undefined) {
+    theWorldsID = userInfo.current_world_id;
+  }
+
   const { currGroup, setCurrGroup, setAddingGroup, addingGroup } = props;
   const addGroup = () => {
     setAddingGroup("group");
   };
-  const [theGroups, setTheGroups] = useState([]);
+  const { theGroups, setTheGroups } = props.theGroups;
+
   const [selectStyle, setSelectStyle] = useState({});
   const onClickHandle = (element) => {
     setCurrGroup(element.group_name);
@@ -29,17 +37,18 @@ function SideBar(props) {
   };
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/api/groups/${world_id}`)
+      .get(`http://localhost:4000/api/groups/${theWorldsID}`)
       .then((res) => {
         const { data } = res;
         console.log("groups: ", data);
         setTheGroups(data[0]);
       })
       .catch((err) => console.log(err));
-  }, [world_id]);
+  }, [theWorldsID, setTheGroups]);
 
   const editGroupHandle = (group) => {
     setEditHold({ ...editHold, ...group });
+
     setAddingGroup("editGroup");
     console.log("editHold: ", editHold, addingGroup);
   };

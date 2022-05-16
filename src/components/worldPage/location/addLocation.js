@@ -15,7 +15,8 @@ function AddLocation(props) {
   const onSubmit = (values, { resetForm }) => {
     const toSubmit = { ...values, ...userInfo };
     axios.post("http://localhost:4000/api/locations", toSubmit).then((res) => {
-      resetForm({});
+      resetForm();
+      console.log("res", res);
       setUserInfo({ ...userInfo });
     });
   };

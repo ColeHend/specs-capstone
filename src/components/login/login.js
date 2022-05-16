@@ -48,7 +48,11 @@ function Login(props) {
           name="password"
         />
       </p>
-      <button type="submit" disabled={!formik.isValid}>
+      <button
+        style={{ color: "#393E46" }}
+        type="submit"
+        disabled={!formik.isValid}
+      >
         Submit
       </button>
     </form>

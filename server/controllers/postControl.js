@@ -55,38 +55,40 @@ function logout(req, res) {
   req.session.destroy((err) => console.log(err));
   res.status(200).redirect("/");
 }
-function postWorld(req, res) {
+async function postWorld(req, res) {
   console.log(req);
   // const { user_id } = req.session;
   const { user_id, world_name, world_desc, map_img_link } = req.body;
+  console.log("reqBODY: ", req.body);
   if (user_id) {
-    sequelize
+    await sequelize
       .query(
-        "INSERT INTO worlds(user_id ,world_name,world_desc, map_img_link ) values(?,?,?,?);",
+        "INSERT INTO worlds(user_id ,world_name,world_desc, map_img_link ) values(?,?,?,?) RETURNING user_id,world_name,world_desc,map_img_link,world_id;",
         {
           replacements: [+user_id, world_name, world_desc, map_img_link],
         }
       )
       .then((dbRes) => {
-        sequelize
-          .query(
-            `SELECT * from worlds WHERE user_id=? AND world_name=? AND world_desc=? AND map_img_link=?`,
-            { replacments: [user_id, world_name, world_desc, map_img_link] }
-          )
-          .then((worldRes) => {
-            const { world_id } = worldRes[0];
-            console.log(worldRes[0]);
-            res.status(200).send({
-              user_id,
-              world_name,
-              world_desc,
-              map_img_link,
-              world_id,
-            });
-          })
-          .catch((err) => console.log(err));
+        res.status(200).send(dbRes);
       })
       .catch((err) => console.log(err));
+    // await sequelize
+    //   .query(
+    //     `SELECT * from worlds WHERE user_id=? AND world_name=? AND world_desc=? AND map_img_link=?`,
+    //     { replacments: [+user_id, world_name, world_desc, map_img_link] }
+    //   )
+    //   .then((worldRes) => {
+    //     const { world_id } = worldRes[0];
+    //     console.log(worldRes[0]);
+    //     res.status(200).send({
+    //       user_id,
+    //       world_name,
+    //       world_desc,
+    //       map_img_link,
+    //       world_id,
+    //     });
+    //   })
+    //   .catch((err) => console.log(err));
   } else {
     res.status(401).send({ message: "not logged in" });
   }
@@ -95,17 +97,20 @@ function postGroup(req, res) {
   const { user_id, world_id, group_name, group_desc } = req.body;
   sequelize
     .query(
-      "INSERT INTO groups(user_id,world_id,group_name,group_desc) VALUES (?,?,?,?);",
+      "INSERT INTO groups(user_id,world_id,group_name,group_desc) VALUES (?,?,?,?) RETURNING group_id;",
       {
         replacements: [user_id, world_id, group_name, group_desc],
       }
     )
-    .then(({ data }) => {})
+    .then((data) => {
+      res.status(200).send(data);
+    })
     .catch((err) => console.log(err));
 }
 function postLocation(req, res) {
   const { user_id, curr_world_id, curr_group_id, locate_name, locate_desc } =
     req.body;
+  console.log("reqBodyLocation: ", req.body);
   sequelize
     .query(
       "INSERT INTO locations(user_id,world_id,parent_id,title,location_desc) VALUES(?,?,?,?,?);",

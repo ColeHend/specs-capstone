@@ -51,7 +51,9 @@ function Register(props) {
           name="passwordConf"
         />
       </p>
-      <button type="submit">Submit</button>
+      <button style={{ color: "#393E46" }} type="submit">
+        Submit
+      </button>
     </form>
   );
 }

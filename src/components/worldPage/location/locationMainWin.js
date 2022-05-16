@@ -11,11 +11,13 @@ function MainWindow(props) {
   const { editHold } = props.editHold;
   const { userInfo } = useContext(UserContext);
   const { addingGroup } = props.addingGroup;
+  // const { currGroup, setCurrGroup } = props;
+  const { theGroups, setTheGroups } = props.theGroups;
   return (
     <div>
       <div>
         {addingGroup === "group" ? (
-          <Group theWorld={userInfo} />
+          <Group theGroups={{ theGroups, setTheGroups }} theWorld={userInfo} />
         ) : (
           <span></span>
         )}
